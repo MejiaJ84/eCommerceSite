@@ -18,3 +18,8 @@ Databse with CRUD functionality for eCommerce site
     - ![](Images/workload1.jpg)
     - ![](Images/workload2.jpg)
     - ![](Images/workload3.jpg)
+
+## Links to helpful resources
+- [.NET MVC](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started)
+- [CRUD Functionality](https://www.codecademy.com/article/what-is-crud)
+- [EF Core](https://docs.microsoft.com/en-us/ef/core/)
