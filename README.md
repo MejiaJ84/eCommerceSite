@@ -4,7 +4,7 @@ Go figure is a mock website for selling Warhammer 40k models/figures. The purpos
 ![](Images/GoFigure.jpg)
 
 ## Features
-Databse with CRUD functionality for eCommerce site
+Database with CRUD functionality for eCommerce site
 - Add new models/figures
 - Get data on existing models already in the database
 - Update data on existing models
@@ -17,7 +17,7 @@ Databse with CRUD functionality for eCommerce site
 - Install the following workloads
     - ![](Images/workload1.jpg)
     - ![](Images/workload2.jpg)
-    - ![](Images/workload3.jpg)
+    
 
 ## Links to helpful resources
 - [.NET MVC](https://docs.microsoft.com/en-us/aspnet/mvc/overview/getting-started/introduction/getting-started)
