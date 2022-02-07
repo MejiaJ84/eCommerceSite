@@ -22,13 +22,15 @@ namespace eCommerceSite.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Figure f)
+        public async Task<IActionResult> Create(Figure f)
         {
             if (ModelState.IsValid)
             {
                 _context.Figures.Add(f); // Prepares insert
-                _context.SaveChanges(); // Executes pending insert
-
+                await _context.SaveChangesAsync(); // Executes pending insert
+                // async allows multitasking while waiting for the execute above to complete
+                // for async code tutorial 
+                // https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-6.0#asynchronous-code
                 ViewData["Message"] = $"{f.Legion} {f.Type} was added successfully!";
                 return View();
             }
