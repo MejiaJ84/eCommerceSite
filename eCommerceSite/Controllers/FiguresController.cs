@@ -1,7 +1,8 @@
 ﻿using eCommerceSite.Data;
 using eCommerceSite.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace eCommerceSite.Controllers
 {
@@ -13,6 +14,15 @@ namespace eCommerceSite.Controllers
         public FiguresController(WarhammerFigureContext context)
         {
             _context = context;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            // Get all figures from database
+            List<Figure> figures = await _context.Figures.ToListAsync(); // method syntax
+            
+
+            return View(figures);
         }
 
         [HttpGet]
