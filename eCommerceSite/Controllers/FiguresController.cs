@@ -48,5 +48,32 @@ namespace eCommerceSite.Controllers
             return View(f);
         }
 
+        // int id is the id passed in the link at the bottom of the index.cshtml
+        // page in the three edit, details, and delete links
+        public async Task<IActionResult> Edit(int id)
+        {
+            Figure figureToEdit = await _context.Figures.FindAsync(id);
+            if (figureToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(figureToEdit);
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Figure figureModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Figures.Update(figureModel);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{figureModel.Legion} {figureModel.Type} was updated successfully!";
+                return RedirectToAction("Index"); // sends back to index page if successful
+            }
+            return View(figureModel); // returns to edit page with figure  if it didn't update successfully
+        }
+
     }
 }
