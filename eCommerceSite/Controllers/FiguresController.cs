@@ -110,5 +110,16 @@ namespace eCommerceSite.Controllers
 
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            Figure figureDetails = await _context.Figures.FindAsync(id);
+
+            if (figureDetails == null)
+            {
+                return NotFound();
+            }
+            return View(figureDetails);
+        }
+
     }
 }
