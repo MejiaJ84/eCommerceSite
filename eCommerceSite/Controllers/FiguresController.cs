@@ -75,5 +75,40 @@ namespace eCommerceSite.Controllers
             return View(figureModel); // returns to edit page with figure  if it didn't update successfully
         }
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            Figure figureToDelete = await _context.Figures.FindAsync(id);
+
+            if (figureToDelete == null)
+            {
+                return NotFound();
+            }
+
+            return View(figureToDelete);
+        }
+
+        // so c# recognizes this method as Delete() even though they have different names.
+        // The Get and Post versions are supposed to have the same names, but also can't 
+        // have the exact same signature(same name and parameters), ActionName("Delete")
+        // solves this problem.
+        [HttpPost, ActionName("Delete")] 
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Figure figureToDelete = await _context.Figures.FindAsync(id);
+
+            if (figureToDelete != null)
+            {
+                _context.Figures.Remove(figureToDelete);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = $"{figureToDelete.Legion} {figureToDelete.Type} was deleted successfully!";
+                return RedirectToAction("Index");
+            }
+
+            TempData["Message"] = $"This figure was already deleted or not in the database.";
+            return RedirectToAction("Index");
+
+
+        }
+
     }
 }
