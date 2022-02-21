@@ -48,5 +48,18 @@ namespace eCommerceSite.Controllers
             return View(f);
         }
 
+        // int id is the id passed in the link at the bottom of the index.cshtml
+        // page in the three edit, details, and delete links
+        public async Task<IActionResult> Edit(int id)
+        {
+            Figure figureToEdit = await _context.Figures.FindAsync(id);
+            if (figureToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(figureToEdit);
+
+        }
+
     }
 }
