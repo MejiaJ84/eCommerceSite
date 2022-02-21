@@ -1,0 +1,40 @@
+﻿@model eCommerceSite.Models.Figure
+
+@{
+    ViewData["Title"] = "Details " + Model.Legion + " " + @Model.Type;
+}
+
+<h1>Details: Model.Legion @Model.Type</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.FigureId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FigureId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Legion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Legion)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
