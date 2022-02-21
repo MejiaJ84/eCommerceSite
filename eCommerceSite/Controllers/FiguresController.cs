@@ -61,5 +61,18 @@ namespace eCommerceSite.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(Figure figureModel)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Figures.Update(figureModel);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index"); // sends back to index page if successful
+            }
+            return View(figureModel); // returns to edit page with figure  if it didn't update successfully
+        }
+
     }
 }
