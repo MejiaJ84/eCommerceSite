@@ -11,5 +11,7 @@ namespace eCommerceSite.Data
         }
 
         public DbSet<Figure> Figures { get; set; }
+
+        public DbSet<Member> Members { get; set; }
     }
 }
