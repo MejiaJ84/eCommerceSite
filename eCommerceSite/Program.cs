@@ -18,7 +18,7 @@ builder.Services.AddHttpContextAccessor();
 // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/app-state?view=aspnetcore-6.0
 // Add session part 1/2
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
+builder.Services.AddSession(); // AddSession has more customizable options
 
 var app = builder.Build();
 
