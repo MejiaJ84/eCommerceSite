@@ -38,6 +38,8 @@ namespace eCommerceSite.Controllers
                 _context.Members.Add(newMember);
                 await _context.SaveChangesAsync();
 
+                LogUserIn(newMember.Email);
+
                 return RedirectToAction("Index", "Home");
 
             }
@@ -64,7 +66,7 @@ namespace eCommerceSite.Controllers
                 // If exists send to homepage
                 if (m != null)
                 {
-                    HttpContext.Session.SetString("Email", loginModel.Email);
+                    LogUserIn(loginModel.Email);
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -72,6 +74,18 @@ namespace eCommerceSite.Controllers
             }
             // Return page if no model found or model state is invalid
             return View();
+        }
+
+        private void LogUserIn(string email)
+        {
+            HttpContext.Session.SetString("Email", email);
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
