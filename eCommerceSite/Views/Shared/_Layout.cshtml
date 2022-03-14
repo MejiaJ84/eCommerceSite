@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor _httpContext
+
+@{
+    string? userEmail = _httpContext.HttpContext.Session.GetString("Email");
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,16 +53,23 @@
             <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
             <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
             <li><a class="dropdown-item" asp-area="" asp-controller="Figures" asp-action="Index">Figure Catalog</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Register">Register</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Login">Log In</a></li>
+            @if (userEmail == null)
+            {
+                <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Register">Register</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Login">Log In</a></li>
+            }
             </ul>
         </div>
+        
         </div>
-
     </div>
     
     <div class="container">
         <main role="main" class="pb-3">
+            @if (userEmail != null)
+            {
+                <h3>Welcome @userEmail</h3>
+            }
             @RenderBody()
         </main>
     </div>
@@ -72,6 +85,8 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
 
 <!---
 <li class="nav-item">
