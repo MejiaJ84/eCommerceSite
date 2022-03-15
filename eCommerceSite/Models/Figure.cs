@@ -32,4 +32,19 @@ namespace eCommerceSite.Models
         [Range(0, 2000)]
         public double Price { get; set; }
     }
+
+    /// <summary>
+    /// A single figure that has been added to the users
+    /// shopping cart cookie
+    /// </summary>
+    public class CartFigureViewModel
+    {
+        public int FigureId { get; set; }
+
+        public string Legion { get; set; }
+
+        public string Type { get; set; }
+
+        public double Price { get; set; }
+    }
 }
