@@ -40,8 +40,17 @@ namespace eCommerceSite.Controllers
             // enables multi-item shopping cart
             List<CartFigureViewModel> cartFigures = GetExistingCartData();
             cartFigures.Add(cartFigure);
-            
+
             // converts the figure object to a string
+            WriteShoppingCartCookie(cartFigures);
+
+            // TODO: Add item to cart cookie
+            TempData["Message"] = "Item added to cart.";
+            return RedirectToAction("Index", "Figures");
+        }
+
+        private void WriteShoppingCartCookie(List<CartFigureViewModel> cartFigures)
+        {
             string cookieData = JsonConvert.SerializeObject(cartFigures);
 
             // Serialization JSON
@@ -49,10 +58,6 @@ namespace eCommerceSite.Controllers
             {
                 Expires = DateTime.Now.AddYears(1) // cookie expires one year from now
             });
-
-            // TODO: Add item to cart cookie
-            TempData["Message"] = "Item added to cart.";
-            return RedirectToAction("Index", "Figures");
         }
 
         /// <summary>
@@ -76,6 +81,19 @@ namespace eCommerceSite.Controllers
         {
             List<CartFigureViewModel> cartFigures = GetExistingCartData();
             return View(cartFigures);
+        }
+
+        public IActionResult Remove(int id)
+        {
+            List<CartFigureViewModel> cartFigures = GetExistingCartData();
+            CartFigureViewModel? targetFigure = cartFigures.Where(f => f.FigureId == id).FirstOrDefault();
+
+            cartFigures.Remove(targetFigure); // remove the figure from the shopping cart
+            
+            WriteShoppingCartCookie(cartFigures); // re-writes the cart cookie so it displays updated data
+
+            return RedirectToAction(nameof(Summary));
+
         }
     }
 }
