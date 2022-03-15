@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Figure>
+﻿@model FigureCatalogViewModel
 
 @{
     ViewData["Title"] = "Figures Catalog";
@@ -17,45 +17,74 @@
 <p>
     <a class="btn btn-info" asp-action="Create" asp-controller="Figures">Create Figure</a>
 </p>
-<table class="table table table-dark table-striped table-hover">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FigureId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Legion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (Figure item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FigureId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Legion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.FigureId">Edit</a>
-                <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.FigureId">Details</a>
-                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FigureId">Delete</a>
-            </td>
-        </tr>
+@if (Model.Figures.Count != 0)
+{
+    <table class="table table table-dark table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Figures[0].FigureId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Figures[0].Legion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Figures[0].Type)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Figures[0].Price)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (Figure item in Model.Figures)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FigureId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Legion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.FigureId">Edit</a>
+                    <a class="btn btn-secondary" asp-action="Details" asp-route-id="@item.FigureId">Details</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FigureId">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
 }
-    </tbody>
-</table>
+else
+{
+    <h3>Turn back Space Marine, only the foul taint of Chaos lies beyond the Empire of Man!</h3>
+    <h5>Page is empty</h5>
+}
+
+<nav aria-label="Figure Catalog Pages">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.LastPage; i++)
+        {
+            if(i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item">
+                    <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+                </li>
+            }
+        }
+    </ul>
+</nav>

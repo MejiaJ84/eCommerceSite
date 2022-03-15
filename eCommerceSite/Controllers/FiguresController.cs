@@ -16,13 +16,26 @@ namespace eCommerceSite.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            // Get all figures from database
-            List<Figure> figures = await _context.Figures.ToListAsync(); // method syntax
+            const int NumFiguresToDisplayPerPage = 3;
+            const int PageOffset = 1; // Need a page offset to use the current page and figure out the number of figures to skip.
             
+            // Set current page to id if it has a value, else set to 1.
+            int currPage = id ?? 1; // null-coalescing operator
 
-            return View(figures);
+            int totalNumOfProducts = await _context.Figures.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumFiguresToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages); // Round pages up to next whole number
+            
+            // Get all figures from database
+            List<Figure> figures = await _context.Figures
+                                                 .Skip(NumFiguresToDisplayPerPage * (currPage - PageOffset))
+                                                 .Take(NumFiguresToDisplayPerPage)
+                                                 .ToListAsync(); // method syntax
+
+            FigureCatalogViewModel catalogModel = new(figures, lastPage, currPage);
+            return View(catalogModel);
         }
 
         [HttpGet]
