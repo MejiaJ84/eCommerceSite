@@ -50,21 +50,24 @@
             Site Navigation
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
-            <li><a class="dropdown-item" asp-area="" asp-controller="Figures" asp-action="Index">Figure Catalog</a></li>
-            @if (userEmail == null)
-            {
-                <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Register">Register</a></li>
-                <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Login">Log In</a></li>
-            }
-            else
-            {
-                <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Logout">Log Out</a></li>            
-            }
+                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="Figures" asp-action="Index">Figure Catalog</a></li>
+                @if (userEmail == null)
+                {
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Register">Register</a></li>
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Login">Log In</a></li>
+                }
+                else
+                {
+                    <li><a class="dropdown-item" asp-area="" asp-controller="Members" asp-action="Logout">Log Out</a></li>            
+                }
+                
+                <li><a class="dropdown-item" asp-area="" asp-controller="Cart" asp-action="Summary">View Cart</a></li>
+        
             </ul>
         </div>
-        
+
         </div>
     </div>
     
