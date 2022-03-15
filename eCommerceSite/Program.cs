@@ -42,6 +42,6 @@ app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"); // id is a a parameter you can send to the controller to use to track page numbers. That's just one example.
 
 app.Run();

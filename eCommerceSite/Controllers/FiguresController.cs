@@ -16,10 +16,22 @@ namespace eCommerceSite.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
+            const int NumFiguresToDisplayPerPage = 3;
+            const int PageOffset = 1; // Need a page offset to use the current page and figure out the number of figures to skip.
+            
+            // Set current page to id if it has a value, else set to 1.
+            int currPage = id ?? 1; // null-coalescing operator
+            
+
+
+
             // Get all figures from database
-            List<Figure> figures = await _context.Figures.ToListAsync(); // method syntax
+            List<Figure> figures = await _context.Figures
+                                                 .Skip(NumFiguresToDisplayPerPage * (currPage - PageOffset))
+                                                 .Take(NumFiguresToDisplayPerPage)
+                                                 .ToListAsync(); // method syntax
             
 
             return View(figures);
