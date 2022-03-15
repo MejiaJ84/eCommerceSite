@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Figure>
+﻿@model FigureCatalogViewModel
 
 @{
     ViewData["Title"] = "Figures Catalog";
@@ -17,28 +17,28 @@
 <p>
     <a class="btn btn-info" asp-action="Create" asp-controller="Figures">Create Figure</a>
 </p>
-@if (Model.Count() != 0)
+@if (Model.Figures.Count != 0)
 {
     <table class="table table table-dark table-striped table-hover">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.FigureId)
+                    @Html.DisplayNameFor(model => model.Figures[0].FigureId)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Legion)
+                    @Html.DisplayNameFor(model => model.Figures[0].Legion)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Type)
+                    @Html.DisplayNameFor(model => model.Figures[0].Type)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayNameFor(model => model.Figures[0].Price)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-        @foreach (Figure item in Model)
+        @foreach (Figure item in Model.Figures)
         {
             <tr>
                 <td>
@@ -67,4 +67,9 @@ else
 {
     <h3>Turn back Space Marine, only the foul taint of Chaos lies beyond the Empire of Man!</h3>
     <h5>Page is empty</h5>
+}
+
+@for (int i = 1; i <= Model.LastPage; i++)
+{
+    <p>@i</p>
 }

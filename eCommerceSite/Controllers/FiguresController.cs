@@ -23,18 +23,19 @@ namespace eCommerceSite.Controllers
             
             // Set current page to id if it has a value, else set to 1.
             int currPage = id ?? 1; // null-coalescing operator
+
+            int totalNumOfProducts = await _context.Figures.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumFiguresToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages); // Round pages up to next whole number
             
-
-
-
             // Get all figures from database
             List<Figure> figures = await _context.Figures
                                                  .Skip(NumFiguresToDisplayPerPage * (currPage - PageOffset))
                                                  .Take(NumFiguresToDisplayPerPage)
                                                  .ToListAsync(); // method syntax
-            
 
-            return View(figures);
+            FigureCatalogViewModel catalogModel = new(figures, lastPage, currPage);
+            return View(catalogModel);
         }
 
         [HttpGet]
